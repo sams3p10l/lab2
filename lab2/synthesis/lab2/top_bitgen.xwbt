@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\materija\ra191\lab2\synthesis\lab2\top.ncd
+OUTFILE=C:\materija\ra191\lab2\synthesis\lab2\top.bit
+FAMILY=Spartan6
+PART=xc6slx45-2fgg676
+WORKINGDIR=C:\materija\ra191\lab2\synthesis\lab2
+LICENSE=ISE
+USER_INFO=209858334_178080923_210593072_268
