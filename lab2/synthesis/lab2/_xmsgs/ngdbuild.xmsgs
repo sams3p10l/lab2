@@ -8,5 +8,8 @@
 <msg type="warning" file="NgdBuild" num="0" delta="new" >The value of SIM_DEVICE on instance &apos;<arg fmt="%s" index="1">vga_top_i/char_rom_i/BRAM_MEM_I/B6/RAMB16BWER</arg>&apos; of type <arg fmt="%s" index="2">RAMB16BWER</arg> has been changed from &apos;<arg fmt="%s" index="3">SPARTAN3ADSP</arg>&apos; to &apos;<arg fmt="%s" index="4">SPARTAN6</arg>&apos; to correct post-ngdbuild and timing simulation for this primitive.  In order for functional simulation to be correct, the value of SIM_DEVICE should be changed in this same manner in the source netlist or constraint file.
 </msg>
 
+<msg type="warning" file="ConstraintSystem" num="56" delta="old" >Constraint <arg fmt="%s" index="1">&lt;TIMESPEC TS_CLK = PERIOD CLK 41.667 ns HIGH 50 %;&gt; [C:/materija/ra191/lab2/docs/top.ucf(9)]</arg>: Unable to find an active <arg fmt="%s" index="2">&apos;TNM&apos; or &apos;TimeGrp&apos;</arg> constraint named &apos;<arg fmt="%s" index="3">CLK</arg>&apos;.
+</msg>
+
 </messages>
 

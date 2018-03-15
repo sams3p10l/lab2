@@ -159,6 +159,11 @@ architecture rtl of top is
   
   signal color_output		  : std_logic_vector(23 downto 0);
   
+  signal char_counter			: std_logic_vector(23 downto 0);
+  signal char_pomerac			: std_logic_vector(12 downto 0);
+  signal pixel_counter			: std_logic_vector(23 downto 0);
+  signal pixel_pomerac 		: std_logic_vector(12 downto 0);
+  
 
 begin
 
@@ -171,11 +176,11 @@ begin
   graphics_lenght <= conv_std_logic_vector(MEM_SIZE*8*8, GRAPH_MEM_ADDR_WIDTH);
   
   -- removed to inputs pin
-  direct_mode <= '1';
+  direct_mode <= '0';
   display_mode     <= "10";  -- 01 - text mode, 10 - graphics mode, 11 - text & graphics
   
   font_size        <= x"1";
-  show_frame       <= '1';
+  show_frame       <= '0';
   foreground_color <= x"FFFFFF";
   background_color <= x"000000";
   frame_color      <= x"FF0000";
@@ -273,10 +278,89 @@ begin
   --char_value
   --char_we
   
+  char_we <= '1';
+  
+  process(pix_clock_s, reset_n_i) begin
+		if(reset_n_i = '0') then
+			char_address <= conv_std_logic_vector(0, MEM_ADDR_WIDTH);
+		elsif (pix_clock_s'event and pix_clock_s = '1') then
+			if(char_address = X"12BF") then
+				char_address <= conv_std_logic_vector(0, MEM_ADDR_WIDTH);
+			else
+				char_address <= char_address + 1;
+			end if;
+		end if;
+  end process;
+  
+  
+ char_value <= 	o"15" when char_address = (char_pomerac + 260) else
+						o"11" when char_address = (char_pomerac + 261) else
+						o"23" when char_address = (char_pomerac + 262) else
+						o"01" when char_address = (char_pomerac + 263) else
+						o"40" when char_address = (char_pomerac + 264) else
+						o"26" when char_address = (char_pomerac + 265) else
+						o"17" when char_address = (char_pomerac + 266) else
+						o"11" when char_address = (char_pomerac + 267) else
+						o"40" when char_address = (char_pomerac + 268) else
+						o"16" when char_address = (char_pomerac + 269) else
+						o"17" when char_address = (char_pomerac + 270) else
+						o"22" when char_address = (char_pomerac + 271) else
+						o"32" when char_address = (char_pomerac + 272) else
+						o"01" when char_address = (char_pomerac + 273) else
+o"40";
+  
   -- koristeci signale realizovati logiku koja pise po GRAPH_MEM
   --pixel_address
   --pixel_value
   --pixel_we
+  
+  pixel_we <= '1';
+  
+ process(pix_clock_s, reset_n_i) begin
+		if(reset_n_i = '0') then
+			pixel_address <= conv_std_logic_vector(0, GRAPH_MEM_ADDR_WIDTH);
+		elsif (pix_clock_s'event and pix_clock_s = '1') then
+			if(pixel_address = X"4AFFF") then
+				pixel_address <= conv_std_logic_vector(0, GRAPH_MEM_ADDR_WIDTH);
+			else
+				pixel_address <= pixel_address + 1;
+			end if;
+		end if;
+  end process;
+  
+  pixel_value <= 	(others => '1') when pixel_address = (pixel_pomerac + 0) else
+						(others => '1') when pixel_address = (pixel_pomerac + 20) else
+						(others => '1') when pixel_address = (pixel_pomerac + 40) else
+						(others => '1') when pixel_address = (pixel_pomerac + 60) else
+						(others => '1') when pixel_address = (pixel_pomerac + 80) else
+						(others => '1') when pixel_address = (pixel_pomerac + 100) else
+						(others => '1') when pixel_address = (pixel_pomerac + 120) else
+						(others => '1') when pixel_address = (pixel_pomerac + 140) else
+						(others => '1') when pixel_address = (pixel_pomerac + 160) else
+						(others => '1') when pixel_address = (pixel_pomerac + 180) else
+						(others => '1') when pixel_address = (pixel_pomerac + 200) else
+						(others => '1') when pixel_address = (pixel_pomerac + 220) else
+						(others => '1') when pixel_address = (pixel_pomerac + 240) else
+						(others => '1') when pixel_address = (pixel_pomerac + 260) else
+						(others => '1') when pixel_address = (pixel_pomerac + 280) else
+						(others => '1') when pixel_address = (pixel_pomerac + 300) else
+						(others => '1') when pixel_address = (pixel_pomerac + 320) else
+						(others => '1') when pixel_address = (pixel_pomerac + 340) else
+						(others => '1') when pixel_address = (pixel_pomerac + 360) else
+						(others => '1') when pixel_address = (pixel_pomerac + 380) else
+						(others => '1') when pixel_address = (pixel_pomerac + 400) else
+						(others => '1') when pixel_address = (pixel_pomerac + 420) else
+						(others => '1') when pixel_address = (pixel_pomerac + 440) else
+						(others => '1') when pixel_address = (pixel_pomerac + 460) else
+						(others => '1') when pixel_address = (pixel_pomerac + 480) else
+						(others => '1') when pixel_address = (pixel_pomerac + 500) else
+						(others => '1') when pixel_address = (pixel_pomerac + 520) else
+						(others => '1') when pixel_address = (pixel_pomerac + 540) else
+						(others => '1') when pixel_address = (pixel_pomerac + 560) else
+						(others => '1') when pixel_address = (pixel_pomerac + 580) else
+						(others => '1') when pixel_address = (pixel_pomerac + 600) else
+						(others => '1') when pixel_address = (pixel_pomerac + 620) else
+(others => '0');
   
   
 end rtl;
